@@ -1,0 +1,13 @@
+class shift_reg_driver;
+    virtual shift_reg_if driver_if;
+
+    function new(virtual shift_reg_if if_in);
+        driver_if = if_in;
+    endfunction
+
+    task drive(input logic shift_enable, input logic data_in);
+        @(posedge driver_if.clk);
+        driver_if.shift_enable <= shift_enable;
+        driver_if.data_in <= data_in;
+    endtask
+endclass

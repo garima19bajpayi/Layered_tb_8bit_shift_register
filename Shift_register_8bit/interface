@@ -1,0 +1,8 @@
+interface shift_reg_if (input logic clk, input logic rst_n);
+    logic shift_enable;
+    logic data_in;
+    logic [7:0] data_out;
+
+    modport master (output shift_enable, data_in, input data_out);
+    modport slave  (input shift_enable, data_in, output data_out);
+endinterface

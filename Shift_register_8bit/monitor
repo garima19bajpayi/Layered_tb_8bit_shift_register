@@ -1,0 +1,18 @@
+class shift_reg_monitor;
+    virtual shift_reg_if monitor_if;
+    mailbox #(logic [7:0]) out_mb;
+
+    function new(virtual shift_reg_if if_in, mailbox #(logic [7:0]) mb);
+        monitor_if = if_in;
+        out_mb = mb;
+    endfunction
+
+    task monitor();
+        forever begin
+            @(posedge monitor_if.clk);
+            if (monitor_if.shift_enable) begin
+                out_mb.put(monitor_if.data_out);
+            end
+        end
+    endtask
+endclass
